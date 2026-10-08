@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>DigiPasar — Marketplace Produk Digital Indonesia</title>
+<link rel="stylesheet" href="/css/digipasar.css">
+<link rel="stylesheet" href="/css/theme.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+</head>
+<body class="min-h-screen flex flex-col">
+
+<!-- ===== HEADER (dirender app.js) ===== -->
+<header class="site-header"><div class="max-w-7xl mx-auto px-4"><div id="hdRoot"></div></div></header>
+
+<main class="flex-1">
+
+  <!-- ===== HERO ===== -->
+  <section class="hero">
+    <span class="deco d1">✨</span>
+    <span class="deco d2">💎</span>
+    <span class="deco d3">⭐</span>
+    <span class="deco d4">🎮</span>
+    <span class="deco d5">✦</span>
+    <span class="deco d6">⚡</span>
+
+    <div class="hero-inner">
+      <div class="hero-pill" data-i18n="hero.badge">🚀 Pengiriman instan 24/7 • Pembayaran aman</div>
+      <h1><span data-i18n="hero.h1a">Semua Kebutuhan Digital</span><br><span class="grad" data-i18n="hero.h1b">dalam Satu Tempat</span></h1>
+      <p class="hero-sub" data-i18n="hero.sub">Top up game, pulsa, e-money, voucher streaming, dan lisensi software — dikirim otomatis ke email Anda dalam hitungan detik.</p>
+
+      <form id="heroSearch" class="hero-search">
+        <input type="text" data-i18n-ph="hero.search_ph" placeholder="Mau beli apa hari ini?" aria-label="Cari produk">
+        <button class="btn btn-primary search-btn" type="submit" data-i18n="hero.search_btn">Cari</button>
+      </form>
+
+      <div class="flex flex-wrap justify-center gap-3">
+        <a href="#terlaris" class="btn btn-primary btn-lg" data-i18n="hero.best">🔥 Lihat Terlaris</a>
+        <a href="#katalog" class="btn btn-lg" data-i18n="hero.all">🧭 Jelajahi Produk</a>
+      </div>
+
+      <div class="hero-stats">
+        <div class="hs"><b>50K+</b><span data-i18n="stat.tx">Transaksi Sukses</span></div>
+        <div class="hs"><b>4.9★</b><span data-i18n="stat.rating">Rating Pembeli</span></div>
+        <div class="hs"><b>&lt;1 mnt</b><span data-i18n="stat.instant">Pengiriman</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== MARQUEE ===== -->
+  <div class="marquee" aria-hidden="true">
+    <div class="marquee-track">
+      <span>⚡ KIRIM INSTAN &nbsp;•&nbsp; 🔒 PEMBAYARAN AMAN &nbsp;•&nbsp; 📱 QRIS • BCA • DANA &nbsp;•&nbsp; 💬 SUPPORT 24/7 &nbsp;•&nbsp; ⭐ RATING 4.9 &nbsp;•&nbsp; 🎮 TOP UP GAME &nbsp;•&nbsp; 🎬 VOUCHER STREAMING &nbsp;•&nbsp; 💳 LISENSI SOFTWARE &nbsp;•&nbsp;</span>
+      <span>⚡ KIRIM INSTAN &nbsp;•&nbsp; 🔒 PEMBAYARAN AMAN &nbsp;•&nbsp; 📱 QRIS • BCA • DANA &nbsp;•&nbsp; 💬 SUPPORT 24/7 &nbsp;•&nbsp; ⭐ RATING 4.9 &nbsp;•&nbsp; 🎮 TOP UP GAME &nbsp;•&nbsp; 🎬 VOUCHER STREAMING &nbsp;•&nbsp; 💳 LISENSI SOFTWARE &nbsp;•&nbsp;</span>
+    </div>
+  </div>
+
+  <!-- ===== KATEGORI ===== -->
+  <section class="max-w-7xl mx-auto px-4 mt-12">
+    <div class="section-head">
+      <h2 class="section-title" data-i18n="sec.cats">📂 Kategori Produk</h2>
+      <span class="tiny muted" data-i18n="sec.cats_sub">Pilih kategori dan langsung lihat isinya</span>
+    </div>
+    <div id="homeCats" class="grid grid-cols-4 sm:grid-cols-7 gap-3">
+      <div class="col-span-full muted text-sm">Memuat kategori...</div>
+    </div>
+  </section>
+
+  <!-- ===== TERLARIS ===== -->
+  <section id="terlaris" class="max-w-7xl mx-auto px-4 mt-14">
+    <div class="section-head">
+      <div>
+        <h2 class="section-title" data-i18n="sec.best">🔥 Produk Terlaris</h2>
+        <div class="tiny muted" data-i18n="sec.best_sub">Paling banyak dibeli minggu ini</div>
+      </div>
+      <a href="#katalog" class="link text-sm" data-i18n="sec.all">Lihat semua →</a>
+    </div>
+    <div id="bestSellers" class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+      <div class="col-span-full muted text-sm">Memuat produk...</div>
+    </div>
+  </section>
+
+  <!-- ===== KATALOG ===== -->
+  <section id="katalog" class="max-w-7xl mx-auto px-4 mt-14" style="scroll-margin-top:7.5rem">
+    <div class="section-head">
+      <div>
+        <h2 class="section-title">🧭 <span data-i18n="sec.explore">Jelajahi Produk</span></h2>
+        <span id="prodCount" class="tiny muted"></span>
+      </div>
+      <div class="flex items-center gap-2 flex-wrap">
+        <span id="filterInfo" class="tiny muted"></span>
+        <select id="sortSel" aria-label="Urutkan produk">
+          <option value="populer" data-i18n="sort.populer">Terpopuler</option>
+          <option value="terbaru" data-i18n="sort.terbaru">Terbaru</option>
+          <option value="termurah" data-i18n="sort.termurah">Termurah</option>
+          <option value="termahal" data-i18n="sort.termahal">Termahal</option>
+        </select>
+      </div>
+    </div>
+
+    <!-- bar filter -->
+    <div class="filter-bar">
+      <input id="minPrice" type="number" min="0" inputmode="numeric" data-i18n-ph="filter.min" placeholder="Harga min" aria-label="Harga minimum">
+      <input id="maxPrice" type="number" min="0" inputmode="numeric" data-i18n-ph="filter.max" placeholder="Harga maks" aria-label="Harga maksimum">
+      <button id="applyPrice" class="btn btn-sm btn-primary" type="button">OK</button>
+      <button id="clearFilter" class="btn btn-sm" type="button">↺ <span data-i18n="filter.reset">Reset</span></button>
+    </div>
+
+    <div id="catPills" class="flex gap-2 overflow-x-auto pb-4 mb-2"></div>
+    <div id="exploreGrid" class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+      <div class="col-span-full muted text-sm">Memuat produk...</div>
+    </div>
+    <div id="pager" class="flex justify-center items-center gap-2 mt-8"></div>
+  </section>
+
+  <!-- ===== FITUR ===== -->
+  <section class="max-w-7xl mx-auto px-4 mt-16">
+    <h2 class="section-title mb-5" style="justify-content:center" data-i18n="sec.why">✨ Kenapa Belanja di DigiPasar?</h2>
+    <div class="grid md:grid-cols-3 gap-4">
+      <div class="feature">
+        <div class="f-ico">⚡</div>
+        <h3 data-i18n="why.1t">Kirim Instan</h3>
+        <p data-i18n="why.1d">Kode voucher & lisensi dikirim otomatis ke email Anda segera setelah pembayaran terverifikasi.</p>
+      </div>
+      <div class="feature">
+        <div class="f-ico">🔒</div>
+        <h3 data-i18n="why.2t">Pembayaran Aman</h3>
+        <p data-i18n="why.2d">Dukung QRIS, transfer bank, dan e-wallet dengan verifikasi berlapis di setiap transaksi.</p>
+      </div>
+      <div class="feature">
+        <div class="f-ico">💬</div>
+        <h3 data-i18n="why.4t">Support Ramah</h3>
+        <p data-i18n="why.4d">Tim kami siap membantu kapan pun — lacak pesanan Anda langsung dari dashboard.</p>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<!-- ===== FOOTER ===== -->
+<footer class="site-footer">
+  <div class="max-w-7xl mx-auto px-4 py-12 grid gap-8 md:grid-cols-4">
+    <div class="foot-logo">
+      <a href="/index.html" class="logo mb-3">
+        <span class="logo-mark">⚡</span>
+        <span class="logo-text">Digi<span class="logo-accent">Pasar</span></span>
+      </a>
+      <p>Marketplace Produk Digital Indonesia. Top up game, pulsa, e-money, dan lisensi software dengan pengiriman instan.</p>
+    </div>
+    <div>
+      <h4>Navigasi</h4>
+      <ul>
+        <li><a href="/index.html">Beranda</a></li>
+        <li><a href="/index.html#terlaris">Produk Terlaris</a></li>
+        <li><a href="/dashboard.html">Dashboard Saya</a></li>
+        <li><a href="/login.html">Masuk / Daftar</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>Bantuan</h4>
+      <ul>
+        <li><a href="/dashboard.html">Lacak Pesanan</a></li>
+        <li><a href="/index.html#katalog">Cara Membeli</a></li>
+        <li><a href="/privacy.html">Kebijakan Privasi</a></li>
+        <li><a href="/terms.html">Syarat & Ketentuan</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>Pembayaran</h4>
+      <div class="flex flex-wrap gap-2 text-xs">
+        <span class="pay-tag">📱 QRIS</span>
+        <span class="pay-tag">🏦 BCA</span>
+        <span class="pay-tag">💰 DANA</span>
+      </div>
+      <p class="tiny" style="margin-top:.75rem;color:#B7ADD4">Transaksi dilindungi enkripsi & verifikasi admin.</p>
+    </div>
+  </div>
+  <div class="footer-mini">
+    © 2026 DigiPasar — <span data-i18n="footer.rights">Marketplace Produk Digital Indonesia.</span>
+  </div>
+</footer>
+
+<script src="/js/i18n.js"></script>
+<script src="/js/app.js"></script>
+<script src="/js/fx.js"></script>
+<script src="/js/pages/home.js"></script>
+</body>
+</html>

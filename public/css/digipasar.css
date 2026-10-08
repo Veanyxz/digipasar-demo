@@ -1,0 +1,123 @@
+/* DigiPasar — utility CSS lokal (pengganti Tailwind CDN, dibuat otomatis) */
+*,*::before,*::after{box-sizing:border-box}
+.min-h-screen{min-height:100vh}
+.flex{display:flex}
+.flex-col{flex-direction:column}
+.max-w-7xl{max-width:80rem}
+.mx-auto{margin-left:auto;margin-right:auto}
+.px-4{padding-left:1rem;padding-right:1rem}
+.flex-1{flex:1 1 0%}
+.py-8{padding-top:2rem;padding-bottom:2rem}
+.hidden{display:none}
+.text-center{text-align:center}
+.py-20{padding-top:5rem;padding-bottom:5rem}
+.text-6xl{font-size:3.75rem;line-height:1}
+.mb-4{margin-bottom:1rem}
+.mb-6{margin-bottom:1.5rem}
+.grid{display:grid}
+.grid-cols-2{grid-template-columns:repeat(2,minmax(0,1fr))}
+.gap-4{gap:1rem}
+.mb-8{margin-bottom:2rem}
+.col-span-full{grid-column:1 / -1}
+.min-w-\[720px\]{min-width:720px}
+.min-w-\[860px\]{min-width:860px}
+.gap-6{gap:1.5rem}
+.items-start{align-items:flex-start}
+.space-y-4 > * + *{margin-top:1rem}
+.grid-cols-3{grid-template-columns:repeat(3,minmax(0,1fr))}
+.gap-3{gap:0.75rem}
+.col-span-2{grid-column:span 2 / span 2}
+.space-y-3 > * + *{margin-top:0.75rem}
+.mt-2{margin-top:0.5rem}
+.mt-1{margin-top:0.25rem}
+.items-center{align-items:center}
+.gap-2{gap:0.5rem}
+.justify-between{justify-content:space-between}
+.mb-2{margin-bottom:0.5rem}
+.mb-0{margin-bottom:0}
+.grid-cols-12{grid-template-columns:repeat(12,minmax(0,1fr))}
+.mb-1{margin-bottom:0.25rem}
+.px-1{padding-left:0.25rem;padding-right:0.25rem}
+.col-span-4{grid-column:span 4 / span 4}
+.col-span-3{grid-column:span 3 / span 3}
+.col-span-1{grid-column:span 1 / span 1}
+.space-y-2 > * + *{margin-top:0.5rem}
+.justify-end{justify-content:flex-end}
+.pt-2{padding-top:0.5rem}
+.max-w-5xl{max-width:64rem}
+.space-y-6 > * + *{margin-top:1.5rem}
+.mt-4{margin-top:1rem}
+.mt-5{margin-top:1.25rem}
+.mt-3{margin-top:0.75rem}
+.flex-wrap{flex-wrap:wrap}
+.justify-center{justify-content:center}
+.mt-12{margin-top:3rem}
+.grid-cols-4{grid-template-columns:repeat(4,minmax(0,1fr))}
+.text-sm{font-size:0.875rem;line-height:1.25rem}
+.mt-14{margin-top:3.5rem}
+.overflow-x-auto{overflow-x:auto}
+.pb-4{padding-bottom:1rem}
+.mt-8{margin-top:2rem}
+.mt-16{margin-top:4rem}
+.mb-5{margin-bottom:1.25rem}
+.py-12{padding-top:3rem;padding-bottom:3rem}
+.gap-8{gap:2rem}
+.mb-3{margin-bottom:0.75rem}
+.text-xs{font-size:0.75rem;line-height:1rem}
+.font-semibold{font-weight:600}
+.truncate{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.min-w-0{min-width:0}
+.gap-1{gap:0.25rem}
+.py-1{padding-top:0.25rem;padding-bottom:0.25rem}
+.pt-4{padding-top:1rem}
+.text-5xl{font-size:3rem;line-height:1}
+.text-xl{font-size:1.25rem;line-height:1.75rem}
+.font-bold{font-weight:700}
+.py-2\.5{padding-top:0.625rem;padding-bottom:0.625rem}
+.max-w-3xl{max-width:48rem}
+.pt-3{padding-top:0.75rem}
+.text-3xl{font-size:1.875rem;line-height:2.25rem}
+.mt-6{margin-top:1.5rem}
+.mr-2{margin-right:0.5rem}
+.w-full{width:100%}
+.max-w-md{max-width:28rem}
+.font-extrabold{font-weight:800}
+.pt-1{padding-top:0.25rem}
+.my-5{margin-top:1.25rem;margin-bottom:1.25rem}
+.py-16{padding-top:4rem;padding-bottom:4rem}
+.max-w-6xl{max-width:72rem}
+.inline-block{display:inline-block}
+.relative{position:relative}
+.h-72{height:18rem}
+.overflow-hidden{overflow:hidden}
+.absolute{position:absolute}
+.top-4{top:1rem}
+.left-4{left:1rem}
+.p-3{padding:0.75rem}
+.ml-auto{margin-left:auto}
+.text-right{text-align:right}
+.mt-10{margin-top:2.5rem}
+.hover\:shadow-violet-900\/20:hover{box-shadow:0 10px 15px -3px rgba(76,29,149,.35),0 4px 6px -4px rgba(76,29,149,.3)}
+.hover\:shadow-lg:hover{box-shadow:0 10px 15px -3px rgba(0,0,0,.35),0 4px 6px -4px rgba(0,0,0,.35)}
+.hover\:-translate-y-0\.5:hover{transform:translateY(-0.125rem)}
+@media (min-width:1024px){
+  .lg\:grid-cols-4{grid-template-columns:repeat(4,minmax(0,1fr))}
+  .lg\:grid-cols-5{grid-template-columns:repeat(5,minmax(0,1fr))}
+  .lg\:col-span-2{grid-column:span 2 / span 2}
+  .lg\:col-span-3{grid-column:span 3 / span 3}
+}
+@media (min-width:640px){
+  .sm\:grid-cols-2{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .sm\:grid{display:grid}
+  .sm\:grid-cols-7{grid-template-columns:repeat(7,minmax(0,1fr))}
+  .sm\:flex-row{flex-direction:row}
+}
+@media (min-width:768px){
+  .md\:grid-cols-5{grid-template-columns:repeat(5,minmax(0,1fr))}
+  .md\:col-span-3{grid-column:span 3 / span 3}
+  .md\:col-span-2{grid-column:span 2 / span 2}
+  .md\:grid-cols-3{grid-template-columns:repeat(3,minmax(0,1fr))}
+  .md\:grid-cols-4{grid-template-columns:repeat(4,minmax(0,1fr))}
+  .md\:grid-cols-2{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .md\:h-96{height:24rem}
+}

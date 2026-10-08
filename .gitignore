@@ -1,0 +1,9 @@
+node_modules/
+.env
+data/*.db*
+sessions/
+*.log
+.DS_Store
+
+# Local Netlify folder
+.netlify

@@ -1,0 +1,28 @@
+# DigiPasar — versi DEMO (repo terpisah dari Vean-marketplace).
+# Front-end statis + satu Express function di Netlify Functions.
+
+[build]
+  command = "npm ci --omit=dev || npm install --omit=dev"
+  publish = "public"
+
+[build.environment]
+  NODE_VERSION = "24"   # node:sqlite tanpa flag --experimental-sqlite
+
+[functions]
+  directory = "netlify/functions"
+  node_bundler = "esbuild"
+  # daftar gambar default utk endpoint /api/image-defaults (folder publik tidak
+  # ikut bundle fungsi — ini teks kecil, ~3KB)
+  included_files = ["public/img/products/_imagelist.json"]
+
+# Rute API → satu function (URL asli dipertahankan, dispatch di server.js)
+[[redirects]]
+  from = "/api/*"
+  to = "/.netlify/functions/api"
+  status = 200
+
+# Upload admin disimpan di Blobs — disajikan dari function, bukan file fisik
+[[redirects]]
+  from = "/img/uploads/*"
+  to = "/.netlify/functions/api"
+  status = 200

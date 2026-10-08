@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Admin Panel — DigiPasar</title>
+<link rel="stylesheet" href="/css/digipasar.css">
+<link rel="stylesheet" href="/css/theme.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+</head>
+<body class="min-h-screen flex flex-col">
+
+<!-- ===== NAVBAR ===== -->
+<header class="site-header">
+  <div class="max-w-7xl mx-auto px-4"><div id="hdRoot"></div></div>
+</header>
+
+<main class="flex-1">
+  <div class="max-w-7xl mx-auto px-4 py-8">
+
+    <!-- Akses ditolak -->
+    <div id="adminDenied" class="hidden text-center py-20">
+      <div class="text-6xl mb-4">⛔</div>
+      <h1 style="font-size:1.6rem;font-weight:900;margin-bottom:.5rem">Akses Ditolak</h1>
+      <p class="muted tiny mb-6">Halaman ini hanya dapat diakses oleh akun dengan peran admin.</p>
+      <a href="/index.html" class="btn btn-primary">Kembali ke Beranda</a>
+    </div>
+
+    <!-- Aplikasi admin -->
+    <div id="adminApp" class="hidden">
+      <div class="section-head">
+        <div>
+          <h1 style="font-size:1.75rem;font-weight:900">🛠️ Admin Panel</h1>
+          <p class="tiny muted">Kelola produk, pesanan, dan pantau statistik toko.</p>
+        </div>
+        <div class="tabs">
+          <button data-tab="products" class="tab-btn active">📦 Produk</button>
+          <button data-tab="orders" class="tab-btn">🧾 Pesanan</button>
+          <button data-tab="notifs" class="tab-btn">🔔 Notifikasi</button>
+        </div>
+      </div>
+
+      <!-- Statistik -->
+      <div id="statCards" class="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
+        <p class="muted tiny col-span-full">Memuat statistik...</p>
+      </div>
+
+      <!-- Tab Produk -->
+      <div id="tabProducts">
+        <div class="section-head">
+          <h2 class="section-title">Daftar Produk</h2>
+          <button id="addProductBtn" class="btn btn-primary">+ Tambah Produk</button>
+        </div>
+        <div class="table-wrap">
+          <div class="table-scroll">
+            <table class="min-w-[720px]">
+              <thead>
+                <tr>
+                  <th>Produk</th>
+                  <th>Kategori</th>
+                  <th>Harga</th>
+                  <th>Varian</th>
+                  <th>Aksi</th>
+                </tr>
+              </thead>
+              <tbody id="productRows">
+                <tr><td colspan="5" class="table-empty">Memuat produk...</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- Tab Pesanan -->
+      <div id="tabOrders" class="hidden">
+        <div class="section-head">
+          <h2 class="section-title">Daftar Pesanan</h2>
+          <select id="orderFilter" aria-label="Filter status pesanan">
+            <option value="">Semua Status</option>
+            <option value="pending">Menunggu Pembayaran</option>
+            <option value="menunggu_verifikasi">Menunggu Verifikasi</option>
+            <option value="diproses">Diproses</option>
+            <option value="selesai">Selesai</option>
+            <option value="dibatalkan">Dibatalkan</option>
+          </select>
+        </div>
+        <div class="table-wrap">
+          <div class="table-scroll">
+            <table class="min-w-[860px]">
+              <thead>
+                <tr>
+                  <th>Invoice</th>
+                  <th>Pembeli</th>
+                  <th>Total</th>
+                  <th>Bayar via</th>
+                  <th>Status</th>
+                  <th>Ubah Status</th>
+                </tr>
+              </thead>
+              <tbody id="orderRows">
+                <tr><td colspan="6" class="table-empty">Memuat pesanan...</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- Tab Notifikasi -->
+      <div id="tabNotifs" class="hidden">
+        <div class="grid lg:grid-cols-5 gap-6 items-start">
+          <div class="lg:col-span-2 card card-pad">
+            <h2 class="p-cat mb-4">📣 Kirim Notifikasi</h2>
+            <form id="notifForm" class="space-y-4">
+              <div>
+                <label class="field-label">Judul <span style="color:var(--red)">*</span></label>
+                <input id="fNotifTitle" type="text" required maxlength="120" placeholder="Promo weekend: diskon 20%!">
+              </div>
+              <div>
+                <label class="field-label">Pesan</label>
+                <textarea id="fNotifBody" rows="3" maxlength="500" placeholder="Detail promo / info untuk pengguna..."></textarea>
+              </div>
+              <div class="grid grid-cols-3 gap-3">
+                <div>
+                  <label class="field-label">Ikon</label>
+                  <input id="fNotifIcon" type="text" maxlength="8" placeholder="🔥">
+                </div>
+                <div class="col-span-2">
+                  <label class="field-label">Kepada</label>
+                  <select id="fNotifScope">
+                    <option value="all">Semua pengguna</option>
+                    <option value="user">Pengguna tertentu (email)</option>
+                  </select>
+                </div>
+              </div>
+              <div id="notifEmailWrap" class="hidden">
+                <label class="field-label">Email pengguna</label>
+                <input id="fNotifEmail" type="email" placeholder="user@contoh.com">
+              </div>
+              <button type="submit" id="notifSendBtn" class="btn btn-primary btn-block">Kirim Notifikasi</button>
+            </form>
+          </div>
+          <div class="lg:col-span-3 card card-pad">
+            <h2 class="p-cat mb-4">Riwayat Notifikasi</h2>
+            <div id="notifList" class="space-y-3"><p class="muted tiny">Memuat...</p></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+
+<!-- ===== MODAL PRODUK ===== -->
+<div id="productModal" class="hidden modal-back">
+  <div class="modal">
+    <div class="modal-head">
+      <h3 id="modalTitle">Tambah Produk</h3>
+      <button id="modalClose" type="button" class="modal-close" aria-label="Tutup">✕</button>
+    </div>
+    <form id="productForm" class="modal-body">
+      <div class="grid sm:grid-cols-2 gap-4">
+        <div>
+          <label class="field-label">Slug <span style="color:var(--red)">*</span></label>
+          <input id="fSlug" type="text" required placeholder="ml-diamond-86">
+        </div>
+        <div>
+          <label class="field-label">Nama Produk <span style="color:var(--red)">*</span></label>
+          <input id="fName" type="text" required placeholder="Mobile Legends Diamond 86">
+        </div>
+      </div>
+      <div class="grid sm:grid-cols-2 gap-4">
+        <div>
+          <label class="field-label">Kategori</label>
+          <select id="fCategory"></select>
+        </div>
+        <div>
+          <label class="field-label">Emoji Cover (fallback)</label>
+          <input id="fEmoji" type="text" placeholder="📦">
+        </div>
+      </div>
+      <div>
+        <label class="field-label">Gambar Produk <span class="tiny muted" style="font-weight:400">(pilih gambar default, tempel URL, atau unggah sendiri — kosong = pakai emoji)</span></label>
+        <div class="flex gap-3 items-start">
+          <div class="flex-1">
+            <input id="fImage" type="text" list="imgDefaults" placeholder="ketik / pilih nama gambar atau tempel URL">
+            <datalist id="imgDefaults"></datalist>
+            <label class="btn btn-sm mt-2" style="display:inline-flex;cursor:pointer">📤 Unggah gambar<input id="fImageFile" type="file" accept="image/png,image/jpeg,image/webp,image/gif" style="display:none"></label>
+            <div id="fImgUpStat" class="tiny muted mt-1"></div>
+          </div>
+          <div id="fImgPrev" class="cd-thumb" style="width:5rem;height:5rem;display:none;flex-shrink:0"></div>
+        </div>
+      </div>
+      <div class="grid sm:grid-cols-2 gap-4">
+        <div>
+          <label class="field-label">Badge</label>
+          <input id="fBadge" type="text" placeholder="TERLARIS / PROMO / kosong">
+        </div>
+        <div>
+          <label class="field-label">Deskripsi</label>
+          <textarea id="fDesc" rows="3" placeholder="Deskripsi produk..."></textarea>
+        </div>
+      </div>
+      <label class="flex items-center gap-2" style="font-weight:500;font-size:.875rem"><input id="fActive" type="checkbox"> Produk aktif (tampil di katalog)</label>
+
+      <div>
+        <div class="flex items-center justify-between mb-2">
+          <label class="field-label mb-0">Varian Harga</label>
+          <button id="addVariantRow" type="button" class="btn btn-sm">+ Tambah Varian</button>
+        </div>
+        <div class="hidden sm:grid grid-cols-12 gap-2 tiny muted mb-1 px-1">
+          <span class="col-span-4">Nama</span><span class="col-span-3">Harga</span><span class="col-span-3">Harga Promo</span><span class="col-span-1">Stok</span><span class="col-span-1"></span>
+        </div>
+        <div id="variantRows" class="space-y-2"></div>
+      </div>
+
+      <div>
+        <div class="flex items-center justify-between mb-2">
+          <label class="field-label mb-0">Field Input Pembeli <span class="tiny muted" style="font-weight:400">(mis. User ID, Server)</span></label>
+          <button id="addFieldRow" type="button" class="btn btn-sm">+ Tambah Field</button>
+        </div>
+        <div id="fieldRows" class="space-y-2"></div>
+      </div>
+
+      <div class="flex justify-end gap-3 pt-2">
+        <button id="modalCancel" type="button" class="btn">Batal</button>
+        <button id="saveProductBtn" type="submit" class="btn btn-primary">Simpan Produk</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<footer class="footer-mini">© 2026 DigiPasar — Marketplace Produk Digital Indonesia.</footer>
+
+<script src="/js/i18n.js"></script>
+<script src="/js/app.js"></script>
+<script src="/js/fx.js"></script>
+<script src="/js/pages/admin.js"></script>
+</body>
+</html>

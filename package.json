@@ -1,0 +1,25 @@
+{
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "dotenv": "^16.4.5",
+    "express": "^4.21.2",
+    "google-auth-library": "^9.15.1",
+    "cookie-session": "^2.1.0",
+    "serverless-http": "^2.7.0",
+    "@netlify/blobs": "^7.1.0"
+  },
+  "description": "DigiPasar \u2014 Marketplace Produk Digital (toko top-up & produk digital ala mastumbas.id)",
+  "engines": {
+    "node": ">=22.5"
+  },
+  "license": "MIT",
+  "main": "server.js",
+  "name": "digipasar",
+  "scripts": {
+    "dev": "node --watch server.js",
+    "reset-db": "node -e \"require('./db').reset()\" && echo DB direset & disedot ulang",
+    "start": "node server.js",
+    "build:css": "node scripts/gen-css.js"
+  },
+  "version": "1.0.0"
+}

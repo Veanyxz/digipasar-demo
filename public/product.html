@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Detail Produk — DigiPasar</title>
+<link rel="stylesheet" href="/css/digipasar.css">
+<link rel="stylesheet" href="/css/theme.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+</head>
+<body class="min-h-screen flex flex-col">
+
+<!-- ===== NAVBAR ===== -->
+<header class="site-header">
+  <div class="max-w-7xl mx-auto px-4"><div id="hdRoot"></div></div>
+</header>
+
+<main class="flex-1">
+  <div class="max-w-6xl mx-auto px-4 py-8">
+    <a href="/index.html" class="link tiny mb-6 inline-block">← Kembali</a>
+    <div id="pWrap">
+      <div class="grid md:grid-cols-2 gap-8">
+        <!-- Cover -->
+        <div>
+          <div id="pCover" class="card relative h-72 md:h-96 flex items-center justify-center overflow-hidden" style="border-width:3px">
+            <span id="pEmoji" style="font-size:6rem;filter:drop-shadow(4px 4px 0 rgba(10,10,10,.85))">📦</span>
+            <div id="pBadge" class="absolute top-4 left-4"></div>
+          </div>
+          <div class="grid grid-cols-3 gap-3 mt-4 text-center">
+            <div class="card card-flat p-3"><div style="font-size:1.3rem">⚡</div><div class="tiny muted mt-1">Kirim Instan</div></div>
+            <div class="card card-flat p-3"><div style="font-size:1.3rem">🔒</div><div class="tiny muted mt-1">100% Aman</div></div>
+            <div class="card card-flat p-3"><div style="font-size:1.3rem">💬</div><div class="tiny muted mt-1">Support 24/7</div></div>
+          </div>
+        </div>
+
+        <!-- Info & form beli -->
+        <div>
+          <div id="pCat" class="p-cat mb-2"></div>
+          <h1 id="pName" style="font-size:1.9rem;font-weight:900;line-height:1.15;margin-bottom:.5rem">Memuat...</h1>
+          <div id="pMeta" class="p-meta mb-4"></div>
+
+          <div id="pPrice" class="mb-1"></div>
+          <div id="pStock" class="tiny muted mb-5"></div>
+
+          <div class="mb-5">
+            <div class="field-label">Pilih Varian</div>
+            <div id="pVariants" class="flex flex-wrap gap-2"><span class="muted tiny">Memuat...</span></div>
+          </div>
+
+          <div class="mb-5">
+            <div class="field-label">Data Penerima</div>
+            <div id="pFields" class="space-y-3"><span class="muted tiny">Memuat...</span></div>
+          </div>
+
+          <div class="flex items-center gap-4 mb-6 flex-wrap">
+            <div class="field-label mb-0">Jumlah</div>
+            <div class="qty-box">
+              <button id="qtyMinus" type="button" aria-label="Kurangi">−</button>
+              <span id="qtyVal">1</span>
+              <button id="qtyPlus" type="button" aria-label="Tambah">+</button>
+            </div>
+            <div class="ml-auto text-right">
+              <div class="tiny muted">Total</div>
+              <div id="pTotal" class="price price-lg">Rp0</div>
+            </div>
+          </div>
+
+          <div class="flex flex-col sm:flex-row gap-3">
+            <button id="addCartBtn" class="btn btn-lg flex-1">🧺 <span data-i18n="card.addcart">Tambah ke Keranjang</span></button>
+            <button id="buyBtn" class="btn btn-primary btn-lg flex-1">🛒 <span data-i18n="p.buy">Beli Sekarang</span></button>
+            <button id="fastBtn" class="btn btn-lg flex-1">⚡ <span data-i18n="p.fast">Checkout Langsung</span></button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Deskripsi -->
+      <div class="card card-pad mt-10">
+        <h2 class="section-title mb-3">📝 Deskripsi Produk</h2>
+        <p id="pDesc" class="muted" style="font-size:.9rem;line-height:1.65;white-space:pre-line"></p>
+      </div>
+    </div>
+  </div>
+</main>
+
+<footer class="footer-mini">© 2026 DigiPasar — Marketplace Produk Digital Indonesia.</footer>
+
+<script src="/js/i18n.js"></script>
+<script src="/js/app.js"></script>
+<script src="/js/fx.js"></script>
+<script src="/js/pages/product.js"></script>
+</body>
+</html>

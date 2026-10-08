@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Checkout — DigiPasar</title>
+<link rel="stylesheet" href="/css/digipasar.css">
+<link rel="stylesheet" href="/css/theme.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+</head>
+<body class="min-h-screen flex flex-col">
+
+<!-- ===== NAVBAR ===== -->
+<header class="site-header">
+  <div class="max-w-7xl mx-auto px-4"><div id="hdRoot"></div></div>
+</header>
+
+<main class="flex-1">
+  <div class="max-w-5xl mx-auto px-4 py-8">
+    <h1 style="font-size:1.75rem;font-weight:900;margin-bottom:.3rem">💳 Checkout</h1>
+    <p class="tiny muted mb-6">Periksa kembali pesanan Anda sebelum membayar.</p>
+
+    <!-- Langkah -->
+    <div class="steps">
+      <span class="step done">1 • Pilih Produk</span>
+      <span class="sep">—</span>
+      <span class="step now">2 • Pembayaran</span>
+      <span class="sep">—</span>
+      <span class="step">3 • Selesai</span>
+    </div>
+
+    <form id="orderForm" class="grid md:grid-cols-5 gap-6 items-start">
+      <div class="md:col-span-3 space-y-6">
+        <div id="coFields" class="card card-pad hidden">
+          <h2 class="p-cat mb-4">🧾 Data Pembelian</h2>
+          <div id="coFieldsBody" class="space-y-4"></div>
+        </div>
+        <div class="card card-pad">
+          <h2 class="p-cat mb-4">Metode Pembayaran</h2>
+          <div id="payMethods" class="space-y-3"></div>
+          <div id="payNote" class="mt-4"></div>
+        </div>
+      </div>
+
+      <div class="md:col-span-2">
+        <div class="card card-pad sticky-side">
+          <h2 class="p-cat mb-4">Ringkasan Pesanan</h2>
+          <div id="coSummary"><p class="muted tiny">Memuat...</p></div>
+          <button id="createBtn" type="submit" class="btn btn-primary btn-lg btn-block mt-5">
+            Buat Pesanan & Bayar
+          </button>
+          <p class="tiny muted text-center mt-3">Dengan menekan tombol di atas, Anda menyetujui Syarat & Ketentuan DigiPasar.</p>
+        </div>
+      </div>
+    </form>
+  </div>
+</main>
+
+<footer class="footer-mini">© 2026 DigiPasar — Marketplace Produk Digital Indonesia.</footer>
+
+<script src="/js/i18n.js"></script>
+<script src="/js/app.js"></script>
+<script src="/js/fx.js"></script>
+<script src="/js/pages/checkout.js"></script>
+</body>
+</html>
