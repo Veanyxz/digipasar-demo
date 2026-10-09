@@ -691,38 +691,15 @@ input[type=checkbox],input[type=radio]{width:1rem;height:1rem;accent-color:var(-
 /* container: beri napas horizontal di semua breakpoint (sebelumnya nempel tepi) */
 .max-w-7xl{padding-inline:1rem}
 
-/* ============ BURGER (dasar, tampil di mobile) ============ */
-.hd-burger{
-  display:none;place-items:center;gap:4px;
-  width:2.4rem;height:2.4rem;flex-shrink:0;padding:0;
-  background:#fff;border:2.5px solid var(--line);border-radius:10px;
-  box-shadow:2.5px 2.5px 0 var(--line);cursor:pointer;
-}
-.hd-burger:active{transform:translate(2px,2px);box-shadow:none}
-.hd-burger i{display:block;width:16px;height:2.5px;background:var(--line);border-radius:2px;transition:transform .2s ease,opacity .2s ease}
-#hdRoot.hd-open .hd-burger i:nth-child(1){transform:translateY(6.5px) rotate(45deg)}
-#hdRoot.hd-open .hd-burger i:nth-child(2){opacity:0}
-#hdRoot.hd-open .hd-burger i:nth-child(3){transform:translateY(-6.5px) rotate(-45deg)}
-
 /* ============ MOBILE / PHONE (≤767px) — tampilan rapi ala mastumbas ============ */
 @media (max-width:767px){
 
   /* ---------- header ---------- */
   .hd-row{height:auto;padding:.55rem 0;gap:.5rem}
-  .hd-burger{display:inline-grid}
-  #hdNav{display:none}
-  #hdRoot.hd-open #hdNav{
-    display:flex;flex-direction:column;gap:.3rem;
-    position:absolute;left:0;right:0;top:100%;
-    background:var(--surface);border:3px solid var(--line);border-top:none;
-    border-radius:0 0 16px 16px;box-shadow:5px 5px 0 var(--line);
-    padding:.55rem;z-index:70;animation:menuIn .16s cubic-bezier(.34,1.56,.64,1);
-  }
-  #hdRoot.hd-open #hdNav .hd-link{width:100%;justify-content:space-between;min-height:44px;border-radius:10px}
-  #hdRoot.hd-open #hdNav .hd-menu{position:static;box-shadow:none;border-width:2px;min-width:0;animation:none;margin-top:.2rem}
-  #hdRoot.hd-open #hdNav .lang-toggle{margin-top:.35rem;border-top:2px dashed var(--line);padding-top:.55rem;width:100%;justify-content:center}
-  #hdRoot.hd-open #hdNav .lang-toggle button{flex:1;min-height:40px;font-size:.8rem}
+  #hdNav{display:none}                      /* nav desktop disembunyikan; akses via bottom nav */
   .hd-reg{display:none}                     /* Daftar diakses dari halaman login */
+  .hd-row .lang-toggle{gap:.28rem}
+  .hd-row .lang-toggle button{padding:.38rem .5rem;font-size:.72rem;min-width:2.1rem;min-height:2.1rem}
   .nav-mobile{display:block!important;padding:.1rem 0 .6rem}
   .nav-mobile input{font-size:16px;padding-top:.72rem;padding-bottom:.72rem;border-radius:12px}
   .hd-actions{gap:.4rem}

@@ -354,7 +354,6 @@ async function renderNavbar() {
 
   root.innerHTML = `
     <div class="hd-row">
-      <button class="hd-burger" id="hdBurger" type="button" aria-label="Menu" aria-expanded="false" aria-controls="hdNav"><i></i><i></i><i></i></button>
       <a href="/index.html" class="logo">
         <span class="logo-mark">⚡</span>
         <span class="logo-text">Digi<span class="logo-accent">Pasar</span></span>
@@ -390,46 +389,45 @@ async function renderNavbar() {
       </form>
     </div>`;
 
-  // ---- lang-toggle: di mobile pindah ke panel burger, di desktop ke hd-actions
+  // ---- lang-toggle: di mobile di samping logo (paling kiri), di desktop di hd-actions ----
   const langBox = root.querySelector('.lang-toggle');
   const mqMob = window.matchMedia('(max-width: 767px)');
   function placeLang() {
-    const nav = root.querySelector('#hdNav'), actions = root.querySelector('.hd-actions');
-    if (!langBox || !nav || !actions) return;
-    if (mqMob.matches) { if (langBox.parentElement !== nav) nav.appendChild(langBox); }
+    const logo = root.querySelector('.logo'), actions = root.querySelector('.hd-actions');
+    if (!langBox || !logo || !actions) return;
+    if (mqMob.matches) { if (logo.nextElementSibling !== langBox) logo.after(langBox); }
     else if (langBox.parentElement !== actions) actions.insertBefore(langBox, root.querySelector('#navAuth'));
   }
   placeLang();
   mqMob.addEventListener('change', placeLang);
 
-  // ---- burger mobile: .hd-nav jadi panel dropdown vertikal ----
-  const burger = root.querySelector('#hdBurger');
-  const setPanel = (open) => {
-    root.classList.toggle('hd-open', open);
-    burger.setAttribute('aria-expanded', open ? 'true' : 'false');
-  };
-  burger.addEventListener('click', e => { e.stopPropagation(); setPanel(!root.classList.contains('hd-open')); });
-  document.addEventListener('click', e => {
-    if (root.classList.contains('hd-open') && !root.contains(e.target)) setPanel(false);
-  });
-  root.querySelectorAll('#hdNav a, #hdNav .hd-mi').forEach(el =>
-    el.addEventListener('click', () => setPanel(false)));
-
   // ---- bottom navigation ala mastumbas (tampil di mobile via CSS) ----
   if (!document.getElementById('bnav')) {
-    const onHome = location.pathname === '/' || location.pathname === '/index.html';
+    const p = location.pathname;
+    const keyFor = (path) => (
+      (path === '/' || path === '/index.html') ? 'home'
+      : (path === '/login.html' || path === '/register.html' || path === '/dashboard.html' || path === '/admin.html') ? 'account'
+      : (path === '/product.html' || path === '/checkout.html' || path === '/order.html') ? 'catalog'
+      : 'home');
     const bn = document.createElement('nav');
     bn.id = 'bnav';
     bn.setAttribute('aria-label', 'Navigasi bawah');
     bn.innerHTML = `
-      <a href="/index.html" class="bnav-item${onHome ? ' active' : ''}"><span class="bnav-ico">🏠</span><span>${esc(t('nav.home'))}</span></a>
+      <a href="/index.html" class="bnav-item" data-bnav="home"><span class="bnav-ico">🏠</span><span>${esc(t('nav.home'))}</span></a>
       <button type="button" class="bnav-item" data-bnav="catalog"><span class="bnav-ico">🧭</span><span>${esc(t('nav.katalog'))}</span></button>
       <button type="button" class="bnav-item" data-bnav="cart"><span class="bnav-ico">🛒</span><span>${esc(t('nav.cart'))}</span><b class="bnav-badge hidden" id="bnavCart"></b></button>
       <button type="button" class="bnav-item" data-bnav="account" data-href="/login.html"><span class="bnav-ico">👤</span><span>${esc(t('nav.account'))}</span></button>`;
     document.body.appendChild(bn);
-    bn.querySelector('[data-bnav="catalog"]').addEventListener('click', () => goCatalog({}));
-    bn.querySelector('[data-bnav="cart"]').addEventListener('click', openCartDrawer);
-    bn.querySelector('[data-bnav="account"]').addEventListener('click', () => { location.href = bn.querySelector('[data-bnav="account"]').dataset.href; });
+    const markActive = (key) => bn.querySelectorAll('.bnav-item').forEach(x =>
+      x.classList.toggle('active', x.dataset.bnav === key));
+    markActive(keyFor(p));
+    bn.querySelector('[data-bnav="home"]').addEventListener('click', () => markActive('home'));
+    bn.querySelector('[data-bnav="catalog"]').addEventListener('click', () => { markActive('catalog'); goCatalog({}); });
+    bn.querySelector('[data-bnav="cart"]').addEventListener('click', () => { markActive('cart'); openCartDrawer(); });
+    bn.querySelector('[data-bnav="account"]').addEventListener('click', (e) => {
+      markActive('account');
+      location.href = bn.querySelector('[data-bnav="account"]').dataset.href;
+    });
   }
 
   // pencarian (langsung ke katalog, tanpa reload kalau masih di index)
