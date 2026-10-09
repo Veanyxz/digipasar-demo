@@ -158,7 +158,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         if (totalPages > 1) {
           let nums = '';
           for (let i = 1; i <= totalPages && i <= 7; i++) {
-            nums += `<button data-p="${i}" class="btn btn-sm ${i === S.page ? 'btn-primary' : ''}" style="width:2.25rem;height:2.25rem;padding:0">${i}</button>`;
+            nums += `<button data-p="${i}" class="btn btn-sm ${i === S.page ? 'btn-primary' : ''}" style="min-width:2.5rem;height:2.5rem;padding:0">${i}</button>`;
           }
           pager.innerHTML = `
             <button data-p="${S.page - 1}" ${S.page <= 1 ? 'disabled' : ''} class="btn btn-sm">‹ Prev</button>

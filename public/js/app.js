@@ -183,11 +183,13 @@ function cartCount() { return cartGet().reduce((s, x) => s + x.qty, 0); }
 function cartSubtotal() { return cartGet().reduce((s, x) => s + x.price * x.qty, 0); }
 function cartClear() { cartSet([]); }
 function updateCartBadge() {
-  const el = document.getElementById('cartCount');
-  if (!el) return;
   const n = cartCount();
-  el.textContent = n > 99 ? '99+' : String(n);
-  el.classList.toggle('hidden', n === 0);
+  const txt = n > 99 ? '99+' : String(n);
+  for (const el of [document.getElementById('cartCount'), document.getElementById('bnavCart')]) {
+    if (!el) continue;
+    el.textContent = txt;
+    el.classList.toggle('hidden', n === 0);
+  }
 }
 
 /* ---------- Navigasi ke katalog (tanpa reload kalau masih di index) ---------- */
@@ -352,11 +354,12 @@ async function renderNavbar() {
 
   root.innerHTML = `
     <div class="hd-row">
+      <button class="hd-burger" id="hdBurger" type="button" aria-label="Menu" aria-expanded="false" aria-controls="hdNav"><i></i><i></i><i></i></button>
       <a href="/index.html" class="logo">
         <span class="logo-mark">⚡</span>
         <span class="logo-text">Digi<span class="logo-accent">Pasar</span></span>
       </a>
-      <nav class="hd-nav">
+      <nav class="hd-nav" id="hdNav">
         <a href="/index.html#katalog" class="hd-link" data-go-katalog>${esc(t('nav.katalog'))}</a>
         <div class="hd-drop" id="katDrop">
           <button class="hd-link" id="katBtn" type="button">${esc(t('nav.kategori'))} <span class="caret">▾</span></button>
@@ -387,7 +390,49 @@ async function renderNavbar() {
       </form>
     </div>`;
 
-  // pencarian (langsung ke katalog, tanpa reload kalau di index)
+  // ---- lang-toggle: di mobile pindah ke panel burger, di desktop ke hd-actions
+  const langBox = root.querySelector('.lang-toggle');
+  const mqMob = window.matchMedia('(max-width: 767px)');
+  function placeLang() {
+    const nav = root.querySelector('#hdNav'), actions = root.querySelector('.hd-actions');
+    if (!langBox || !nav || !actions) return;
+    if (mqMob.matches) { if (langBox.parentElement !== nav) nav.appendChild(langBox); }
+    else if (langBox.parentElement !== actions) actions.insertBefore(langBox, root.querySelector('#navAuth'));
+  }
+  placeLang();
+  mqMob.addEventListener('change', placeLang);
+
+  // ---- burger mobile: .hd-nav jadi panel dropdown vertikal ----
+  const burger = root.querySelector('#hdBurger');
+  const setPanel = (open) => {
+    root.classList.toggle('hd-open', open);
+    burger.setAttribute('aria-expanded', open ? 'true' : 'false');
+  };
+  burger.addEventListener('click', e => { e.stopPropagation(); setPanel(!root.classList.contains('hd-open')); });
+  document.addEventListener('click', e => {
+    if (root.classList.contains('hd-open') && !root.contains(e.target)) setPanel(false);
+  });
+  root.querySelectorAll('#hdNav a, #hdNav .hd-mi').forEach(el =>
+    el.addEventListener('click', () => setPanel(false)));
+
+  // ---- bottom navigation ala mastumbas (tampil di mobile via CSS) ----
+  if (!document.getElementById('bnav')) {
+    const onHome = location.pathname === '/' || location.pathname === '/index.html';
+    const bn = document.createElement('nav');
+    bn.id = 'bnav';
+    bn.setAttribute('aria-label', 'Navigasi bawah');
+    bn.innerHTML = `
+      <a href="/index.html" class="bnav-item${onHome ? ' active' : ''}"><span class="bnav-ico">🏠</span><span>${esc(t('nav.home'))}</span></a>
+      <button type="button" class="bnav-item" data-bnav="catalog"><span class="bnav-ico">🧭</span><span>${esc(t('nav.katalog'))}</span></button>
+      <button type="button" class="bnav-item" data-bnav="cart"><span class="bnav-ico">🛒</span><span>${esc(t('nav.cart'))}</span><b class="bnav-badge hidden" id="bnavCart"></b></button>
+      <button type="button" class="bnav-item" data-bnav="account" data-href="/login.html"><span class="bnav-ico">👤</span><span>${esc(t('nav.account'))}</span></button>`;
+    document.body.appendChild(bn);
+    bn.querySelector('[data-bnav="catalog"]').addEventListener('click', () => goCatalog({}));
+    bn.querySelector('[data-bnav="cart"]').addEventListener('click', openCartDrawer);
+    bn.querySelector('[data-bnav="account"]').addEventListener('click', () => { location.href = bn.querySelector('[data-bnav="account"]').dataset.href; });
+  }
+
+  // pencarian (langsung ke katalog, tanpa reload kalau masih di index)
   root.querySelectorAll('#hdSearch, [data-nav-search]').forEach(f => {
     f.addEventListener('submit', e => {
       e.preventDefault();
@@ -470,6 +515,12 @@ async function renderNavbar() {
       <a href="/login.html" class="btn btn-sm">${esc(t('nav.login'))}</a>
       <a href="/register.html" class="btn btn-primary btn-sm hd-reg">${esc(t('nav.register'))}</a>`;
   }
+
+  // bottom nav: tujuan item Akun mengikuti status login
+  const bAcc = document.querySelector('[data-bnav="account"]');
+  if (bAcc) bAcc.dataset.href = (me.ok && me.user)
+    ? (me.user.role === 'admin' ? '/admin.html' : '/dashboard.html')
+    : '/login.html';
 }
 
 /** Pastikan user login; jika belum, lempar ke login.html. Kembalikan user atau null. */

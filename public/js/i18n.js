@@ -6,9 +6,11 @@
 const I18N = {
   id: {
     // header
+    'nav.home': 'Beranda',
+    'nav.account': 'Akun',
     'nav.katalog': 'Katalog',
     'nav.kategori': 'Kategori',
-    'nav.search_ph': 'Cari voucher game, pulsa, e-money, langganan...',
+    'nav.search_ph': 'Cari produk atau brand...',
     'nav.notif': 'Notifikasi',
     'nav.cart': 'Keranjang',
     'nav.login': 'Masuk',
@@ -212,9 +214,11 @@ const I18N = {
   },
 
   en: {
+    'nav.home': 'Home',
+    'nav.account': 'Account',
     'nav.katalog': 'Catalog',
     'nav.kategori': 'Categories',
-    'nav.search_ph': 'Search games, e-money, vouchers, subscriptions...',
+    'nav.search_ph': 'Search products or brands...',
     'nav.notif': 'Notifications',
     'nav.cart': 'Cart',
     'nav.login': 'Sign in',
